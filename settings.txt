@@ -1,0 +1,8 @@
+{
+  "jupyter.jupyterServerType": "local",
+  "python.analysis.typeCheckingMode": "off",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#1e5814",
+    "activityBar.activeBorder": "#1e5814"
+  }
+}
