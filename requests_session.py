@@ -1,8 +1,12 @@
-from rich.console import console
+from rich.console import Console
 import creds
 import time
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
+import os
+
+console = Console()
+
 payload = {
     "username": creds.user,
     "password": creds.password,
@@ -39,8 +43,14 @@ with sync_playwright() as sp:
     print(page.url)
     html = page.inner_html('#content')
     soup = BeautifulSoup(html, 'html.parser')
-    console.log(soup.prettify(), style="dim")
-    # class_list = ['grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center',
-    #               ]
-    item = soup.find_all(class_="bundle-circle bundle-circle-red")
-    print(item)
+    
+    # with open('output.html', 'w') as f:
+    #     f.truncate(0)
+    #     f.write(soup.prettify())
+    
+    # console.print(soup.prettify(), style="dim")
+    # class_list = [' ]
+    page.locator(class="js-accordion-heading bills-accordion__heading").click()
+    item = soup.find_all(class_="grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center")
+    console.print(item, style="dim")
+    browser.close()
