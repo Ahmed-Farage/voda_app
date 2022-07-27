@@ -41,14 +41,15 @@ with sync_playwright() as sp:
     print(page.url)
     # TODO ==> serch for the correct way to click the dynamic toggle button!!
     # page.locator("text= New Generic At Home 300LE").click()
-    page.mouse.wheel(delta_x= 0, delta_y= 100)
+    page.mouse.wheel(delta_x=0, delta_y=100)
     page.screenshot(path=f"./screenshot {timing} .png")
     browser.close()
 
     # html = page.inner_html('#content')
     # soup = BeautifulSoup(html, 'html.parser')
     # console.log(soup.prettify(), style="dim")
-    # # class_list = ['grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center',
+    # # class_list = ['grid__item grid__item--gutter grid__item--middle
+    # grid__item--sm-1/1 grid__item--1/4 grid__item--center',
     # #               ]
     # item = soup.find_all(class_="bundle-circle bundle-circle-red")
     # print(item)
