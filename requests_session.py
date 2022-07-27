@@ -1,12 +1,14 @@
-from rich.console import console
+
+from playwright.sync_api import sync_playwright
 import creds
 import time
-from playwright.sync_api import sync_playwright
-from bs4 import BeautifulSoup
+
 payload = {
     "username": creds.user,
     "password": creds.password,
 }
+
+timing = time.ctime().replace(":", " ")
 
 
 def logging():
@@ -26,7 +28,7 @@ with sync_playwright() as sp:
     browser = sp.firefox.launch(headless=False, slow_mo=30)
     page = browser.new_page()
     page.goto(creds.loging_url)
-    for i in range(3):
+    for i in range(2):
         logging()
         time.sleep(1)
         if page.url == creds.loging_url:
@@ -37,10 +39,16 @@ with sync_playwright() as sp:
             page.goto(creds.usb_manage)
             break
     print(page.url)
-    html = page.inner_html('#content')
-    soup = BeautifulSoup(html, 'html.parser')
-    console.log(soup.prettify(), style="dim")
-    # class_list = ['grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center',
-    #               ]
-    item = soup.find_all(class_="bundle-circle bundle-circle-red")
-    print(item)
+    # TODO ==> serch for the correct way to click the dynamic toggle button!!
+    # page.locator("text= New Generic At Home 300LE").click()
+    page.mouse.wheel(delta_x= 0, delta_y= 100)
+    page.screenshot(path=f"./screenshot {timing} .png")
+    browser.close()
+
+    # html = page.inner_html('#content')
+    # soup = BeautifulSoup(html, 'html.parser')
+    # console.log(soup.prettify(), style="dim")
+    # # class_list = ['grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center',
+    # #               ]
+    # item = soup.find_all(class_="bundle-circle bundle-circle-red")
+    # print(item)
