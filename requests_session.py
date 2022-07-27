@@ -1,7 +1,7 @@
-
+import time
 from playwright.sync_api import sync_playwright
 import creds
-import time
+
 
 payload = {
     "username": creds.user,
