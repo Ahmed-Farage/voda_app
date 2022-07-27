@@ -1,7 +1,18 @@
+<<<<<<< HEAD
 import time
 from playwright.sync_api import sync_playwright
 import creds
 
+=======
+from rich.console import Console
+import creds
+import time
+from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
+import os
+
+console = Console()
+>>>>>>> refs/remotes/origin/master
 
 payload = {
     "username": creds.user,
@@ -39,6 +50,20 @@ with sync_playwright() as sp:
             page.goto(creds.usb_manage)
             break
     print(page.url)
+    html = page.inner_html('#content')
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # with open('output.html', 'w') as f:
+    #     f.truncate(0)
+    #     f.write(soup.prettify())
+    
+    # console.print(soup.prettify(), style="dim")
+    # class_list = [' ]
+    
+    page.locator(class="js-accordion-heading bills-accordion__heading").click()
+    item = soup.find_all(class_="grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center")
+    console.print(item, style="dim")
+    
     # TODO ==> serch for the correct way to click the dynamic toggle button!!
     # page.locator("text= New Generic At Home 300LE").click()
     page.mouse.wheel(delta_x=0, delta_y=100)
