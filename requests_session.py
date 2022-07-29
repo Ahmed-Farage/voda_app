@@ -53,7 +53,7 @@ with sync_playwright() as sp:
     # console.print(soup.prettify(), style="dim")
     # class_list = [' ]
 
-    page.locator(class="js-accordion-heading bills-accordion__heading").click()
+    page.locator("span[contains(@class, 'js-accordion-chevron bills-accordion__chevron'").click()
     item = soup.find_all(
         class_="grid__item grid__item--gutter grid__item--middle grid__item--sm-1/1 grid__item--1/4 grid__item--center")
     console.print(item, style="dim")
